@@ -12,3 +12,12 @@ Build a system that takes unstructured documents (PDFs, invoices, contracts) and
 - PostgreSQL for storage
 - Gemini or Groq for the LLM layer
 - React for the dashboard
+
+## Setup
+
+```bash
+cp .env.example .env
+docker-compose up --build
+```
+
+API at http://localhost:8000/docs
