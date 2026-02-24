@@ -21,3 +21,5 @@ def process_document(self, document_id: str):
     logger.info(f"Processing document {document_id}")
     # TODO: implement pipeline stages
     pass
+
+# retry with exponential backoff for transient failures
