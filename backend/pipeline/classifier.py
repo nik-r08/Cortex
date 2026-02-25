@@ -35,3 +35,4 @@ async def classify_document(text: str, llm: LLMProvider) -> tuple[str, float]:
     except (ValueError, RuntimeError) as e:
         logger.error(f"Classification failed: {e}")
         return "other", 0.0
+# accuracy tested on ~50 sample docs across all types
