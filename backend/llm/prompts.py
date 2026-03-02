@@ -96,3 +96,5 @@ Return a JSON object where keys are descriptive field names and values are the e
 def get_extraction_prompt(doc_type: str, text: str) -> str:
     template = EXTRACTION_PROMPTS.get(doc_type, EXTRACTION_PROMPTS["default"])
     return template.format(text=text[:8000])  # cap the text length for token limits
+
+# contract prompts still need work, keeping it simple for now
