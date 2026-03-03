@@ -46,3 +46,4 @@ def validate_extractions(extractions: dict, doc_type: str) -> tuple[dict, list[s
         logger.info(f"Validation warnings for {doc_type}: {warnings}")
 
     return validated, warnings
+# TODO: add field-level confidence thresholds per doc type
