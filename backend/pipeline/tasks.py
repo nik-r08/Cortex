@@ -223,3 +223,4 @@ def process_document(self, document_id: str):
         raise self.retry(exc=e)
     finally:
         db.close()
+# added exponential backoff: 10s, 30s, 90s
