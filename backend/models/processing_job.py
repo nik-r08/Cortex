@@ -52,3 +52,4 @@ class ProcessingJob(Base):
 
     def __repr__(self):
         return f"<Job {self.stage}:{self.status} doc={self.document_id}>"
+# job states: pending -> running -> completed | failed | needs_review
