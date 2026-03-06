@@ -225,3 +225,4 @@ def process_document(self, document_id: str):
         db.close()
 # added exponential backoff: 10s, 30s, 90s
 # dead letter after max retries exceeded
+# dead letter queue: failed docs go to manual review
