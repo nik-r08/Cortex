@@ -53,3 +53,4 @@ class GroqProvider(LLMProvider):
         except json.JSONDecodeError:
             logger.warning(f"Groq returned invalid JSON: {cleaned[:200]}")
             raise ValueError("LLM returned invalid JSON")
+# rate limit: 30 RPM for groq free tier

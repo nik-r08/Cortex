@@ -62,3 +62,4 @@ class GeminiProvider(LLMProvider):
         except json.JSONDecodeError:
             logger.warning(f"Failed to parse LLM output as JSON: {cleaned[:200]}")
             raise ValueError(f"LLM returned invalid JSON")
+# rate limit: 1000 RPD for gemini free tier
