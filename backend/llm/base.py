@@ -12,3 +12,5 @@ class LLMProvider(ABC):
     async def generate_json(self, prompt: str, system: str = "") -> dict:
         """Same as generate but parse the response as JSON."""
         ...
+
+# fallback order: gemini -> groq
