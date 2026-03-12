@@ -48,3 +48,4 @@ app.include_router(api_router)
 @app.get("/")
 async def root():
     return {"name": "cortex", "version": "0.1.0", "docs": "/docs"}
+# structured json logs for easier debugging
