@@ -226,3 +226,4 @@ def process_document(self, document_id: str):
 # added exponential backoff: 10s, 30s, 90s
 # dead letter after max retries exceeded
 # dead letter queue: failed docs go to manual review
+# propagate task errors to job status, not just celery result
