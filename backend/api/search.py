@@ -57,3 +57,4 @@ async def search_documents(
         "page": page,
         "page_size": page_size,
     }
+# search results ranked by ts_rank with weights
