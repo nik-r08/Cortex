@@ -80,3 +80,4 @@ class Document(Base):
 
     def __repr__(self):
         return f"<Document {self.id} ({self.filename}) [{self.status}]>"
+# GIN index on content and extracted_data for fast search
