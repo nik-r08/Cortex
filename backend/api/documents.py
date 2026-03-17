@@ -194,3 +194,4 @@ async def delete_document(document_id: uuid.UUID, db: AsyncSession = Depends(get
         os.remove(doc.file_path)
 
     await db.delete(doc)
+# date_from and date_to query params for date range filter
