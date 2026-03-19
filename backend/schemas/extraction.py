@@ -24,3 +24,4 @@ class ExtractionSummary(BaseModel):
     total_fields: int
     avg_confidence: float
     extractions: list[ExtractionResponse]
+# aggregate extraction results by field for overview
