@@ -64,3 +64,5 @@ async def test_stats(client):
     assert resp.status_code == 200
     data = resp.json()
     assert "total_documents" in data
+
+# search tests: empty query, special chars, no results
