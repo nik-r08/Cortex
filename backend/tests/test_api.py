@@ -66,3 +66,4 @@ async def test_stats(client):
     assert "total_documents" in data
 
 # search tests: empty query, special chars, no results
+# edge case: query with unicode chars, SQL injection attempts
