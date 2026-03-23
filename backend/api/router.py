@@ -12,3 +12,4 @@ api_router.include_router(search_router)
 api_router.include_router(stats_router)
 
 # simple API key auth via X-API-Key header
+# rate limit: 100 requests per minute per API key
