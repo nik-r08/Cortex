@@ -10,3 +10,5 @@ api_router.include_router(health_router)
 api_router.include_router(documents_router)
 api_router.include_router(search_router)
 api_router.include_router(stats_router)
+
+# simple API key auth via X-API-Key header
