@@ -198,3 +198,5 @@ async def delete_document(document_id: uuid.UUID, db: AsyncSession = Depends(get
 
 # document detail includes full extraction results and confidence
 # timeline: shows when each pipeline stage ran and its duration
+
+# batch: accepts up to 10 files in a single request
