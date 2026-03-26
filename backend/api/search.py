@@ -61,3 +61,4 @@ async def search_documents(
 
 # filter search by document_type and processing status
 # improved relevance: boost exact phrase matches
+# escape special postgres tsquery chars before search
