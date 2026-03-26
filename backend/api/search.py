@@ -60,3 +60,4 @@ async def search_documents(
 # search results ranked by ts_rank with weights
 
 # filter search by document_type and processing status
+# improved relevance: boost exact phrase matches
