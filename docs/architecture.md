@@ -23,3 +23,13 @@ Can't block the API server. Use Celery workers + Redis queue.
 
 Documents -> has many Extractions
 Documents -> has many ProcessingJobs (one per pipeline stage)
+
+## API Endpoints
+
+- POST /api/documents/upload
+- GET /api/documents
+- GET /api/documents/{id}
+- POST /api/documents/batch
+- GET /api/search
+- GET /api/stats
+- GET /health
