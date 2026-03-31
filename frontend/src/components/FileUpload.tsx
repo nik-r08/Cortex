@@ -62,3 +62,4 @@ export default function FileUpload({ onSuccess }: Props) {
     </div>
   )
 }
+// TODO: add real progress tracking via websockets
