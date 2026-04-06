@@ -60,3 +60,4 @@ export default function Search() {
     </div>
   )
 }
+// highlight matching terms in search results
