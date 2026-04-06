@@ -61,3 +61,4 @@ export default function Search() {
   )
 }
 // highlight matching terms in search results
+// sync search query to URL params for shareable links
