@@ -1,6 +1,5 @@
 from functools import lru_cache
 from pydantic_settings import BaseSettings
-from pydantic import Field
 
 
 class Settings(BaseSettings):
@@ -31,8 +30,25 @@ class Settings(BaseSettings):
     def max_file_size_bytes(self) -> int:
         return self.max_file_size_mb * 1024 * 1024
 
+    def get_async_db_url(self) -> str:
+        """Convert standard postgres URL to asyncpg format if needed."""
+        url = self.database_url
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql://") and "+asyncpg" not in url:
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return url
+
+    def get_sync_db_url(self) -> str:
+        """Return a standard psycopg2 URL."""
+        url = self.database_url_sync or self.database_url
+        if "+asyncpg" in url:
+            url = url.replace("postgresql+asyncpg://", "postgresql://", 1)
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql://", 1)
+        return url
+
 
 @lru_cache()
 def get_settings() -> Settings:
     return Settings()
-# CORS: configurable origins, default localhost
