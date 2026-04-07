@@ -33,3 +33,4 @@ function StatCard({ label, value }: { label: string; value: number }) {
     </div>
   )
 }
+// poll stats every 5s when documents are processing
