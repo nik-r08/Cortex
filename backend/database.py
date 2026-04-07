@@ -1,4 +1,6 @@
 import logging
+import ssl as ssl_module
+
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
@@ -8,7 +10,14 @@ logger = logging.getLogger(__name__)
 settings = get_settings()
 
 db_url = settings.get_async_db_url()
-logger.info(f"Connecting to database (driver: asyncpg)")
+
+# neon and other cloud postgres providers require SSL
+needs_ssl = "neon.tech" in settings.database_url or "sslmode" in settings.database_url
+
+connect_args = {}
+if needs_ssl:
+    ctx = ssl_module.create_default_context()
+    connect_args["ssl"] = ctx
 
 engine = create_async_engine(
     db_url,
@@ -16,6 +25,7 @@ engine = create_async_engine(
     pool_size=5,
     max_overflow=10,
     pool_pre_ping=True,
+    connect_args=connect_args,
 )
 
 async_session = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
