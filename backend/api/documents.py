@@ -1,9 +1,10 @@
+import asyncio
 import os
 import uuid
 from datetime import datetime
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query, UploadFile
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -56,6 +57,7 @@ async def save_upload(file: UploadFile) -> tuple[str, str, int]:
 @router.post("/", response_model=DocumentUploadResponse, status_code=201)
 async def upload_document(
     file: UploadFile = File(...),
+    background_tasks: BackgroundTasks = BackgroundTasks(),
     db: AsyncSession = Depends(get_db),
 ):
     if file.content_type not in ALLOWED_TYPES:
@@ -78,8 +80,9 @@ async def upload_document(
     db.add(doc)
     await db.flush()
 
-    # TODO: trigger celery pipeline task here
-    # process_document.delay(str(doc.id))
+    # run processing in background so the upload response is fast
+    from backend.pipeline.process_sync import process_document_inline
+    background_tasks.add_task(process_document_inline, str(doc.id))
 
     return doc
 
