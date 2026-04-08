@@ -6,13 +6,13 @@ from backend.llm.base import LLMProvider
 
 logger = logging.getLogger(__name__)
 
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
 
 
 class GeminiProvider(LLMProvider):
     def __init__(self, api_key: str):
         self.api_key = api_key
-        self.client = httpx.AsyncClient(timeout=30.0)
+        self.client = httpx.AsyncClient(timeout=60.0)
 
     async def generate(self, prompt: str, system: str = "") -> str:
         parts = []
@@ -35,31 +35,28 @@ class GeminiProvider(LLMProvider):
         )
 
         if resp.status_code != 200:
-            logger.error(f"Gemini API error: {resp.status_code} {resp.text}")
-            raise RuntimeError(f"Gemini API returned {resp.status_code}")
+            body = resp.text[:500]
+            logger.error(f"Gemini API error {resp.status_code}: {body}")
+            raise RuntimeError(f"Gemini API returned {resp.status_code}: {body}")
 
         data = resp.json()
         try:
             return data["candidates"][0]["content"]["parts"][0]["text"]
         except (KeyError, IndexError) as e:
-            logger.error(f"Unexpected Gemini response structure: {data}")
+            logger.error(f"Unexpected Gemini response: {json.dumps(data)[:500]}")
             raise RuntimeError("Could not parse Gemini response") from e
 
     async def generate_json(self, prompt: str, system: str = "") -> dict:
-        # tell the model we want json back
         json_system = (system + "\n" if system else "") + "Respond with valid JSON only. No markdown, no explanation."
         raw = await self.generate(prompt, json_system)
 
-        # sometimes the model wraps it in ```json ... ```
         cleaned = raw.strip()
         if cleaned.startswith("```"):
             lines = cleaned.split("\n")
-            # drop first and last lines (the ``` markers)
             cleaned = "\n".join(lines[1:-1])
 
         try:
             return json.loads(cleaned)
         except json.JSONDecodeError:
-            logger.warning(f"Failed to parse LLM output as JSON: {cleaned[:200]}")
+            logger.warning(f"Failed to parse LLM JSON: {cleaned[:300]}")
             raise ValueError(f"LLM returned invalid JSON")
-# rate limit: 1000 RPD for gemini free tier
