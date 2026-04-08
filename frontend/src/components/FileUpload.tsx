@@ -63,3 +63,4 @@ export default function FileUpload({ onSuccess }: Props) {
   )
 }
 // TODO: add real progress tracking via websockets
+// show clear error message when upload fails with file type or size
