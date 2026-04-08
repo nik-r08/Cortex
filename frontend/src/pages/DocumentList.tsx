@@ -78,3 +78,4 @@ export default function DocumentList() {
   )
 }
 // filter component for document type selector
+// skeleton loading for document list, empty state illustration
