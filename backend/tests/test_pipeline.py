@@ -77,3 +77,4 @@ def test_validate_bad_email():
     validated, warnings = validate_extractions(fields, "resume")
     assert any("email" in w for w in warnings)
 # 12/15 passing, 3 flaky due to LLM response variance
+# full integration test with celery and postgres
