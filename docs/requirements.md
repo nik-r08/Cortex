@@ -20,3 +20,10 @@
 - Multi user / auth
 - Real time processing (async is fine)
 - Batch upload (do one at a time first)
+
+## Deployment
+
+Target: Render (free tier) + Neon (free postgres)
+Redis: Render managed Redis or Upstash
+
+See README for deploy instructions.
