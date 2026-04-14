@@ -12,3 +12,4 @@ Build a system that takes unstructured documents (PDFs, invoices, contracts) and
 - PostgreSQL for storage
 - Gemini or Groq for the LLM layer
 - React for the dashboard
+# v0.1.0 release
